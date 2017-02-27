@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/ljhang/VersionCheckSwift.git", :tag => "1.0.0" }
 
-  s.source_files  = "CheckVersion/*.{swift}"
+  s.source_files  = "CheckVersion/**/*.swift"
 
   s.frameworks = "Foundation", "UIKit"
 
