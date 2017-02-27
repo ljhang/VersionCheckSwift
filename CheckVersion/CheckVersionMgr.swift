@@ -26,8 +26,8 @@ class CheckVersionMgr : NSObject {
     private override init() {}
     
     var window: UIWindow {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.window!
+        let appDelegate = UIApplication.shared.delegate
+        return (appDelegate?.window!)!
     }
     
     
