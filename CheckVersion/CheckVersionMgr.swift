@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 /** 上次检查的时间*/
 let LastCheckTime = "lastchecktime"
@@ -20,7 +21,7 @@ let ItunesAdress = "http://itunes.apple.com/lookup?bundleId="
 
 
 
-class CheckVersionMgr : NSObject {
+class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     
     static let shareInstance = CheckVersionMgr()
     private override init() {}
@@ -30,6 +31,7 @@ class CheckVersionMgr : NSObject {
         return (appDelegate?.window!)!
     }
     
+    private var privateInfoModel : AppInfoModel?
     
     /** 检测新版本(使用默认提示框)*/
     func checkVersionWithSystemAlert() {
@@ -41,6 +43,7 @@ class CheckVersionMgr : NSObject {
                 if resultCount.intValue == 1 {
                     let results = (result?["results"] as? NSArray)?.firstObject
                     let infoModel = AppInfoModel.init(dic: results as! [String : AnyObject])
+                    self.privateInfoModel = infoModel
                     
                     let showAlert = self.compareVersion(self.getLocalVersion(), infoModel.version as! String)
                     if showAlert {
@@ -49,7 +52,7 @@ class CheckVersionMgr : NSObject {
                             //关闭
                         }))
                         alertController.addAction(UIAlertAction.init(title: "火速更新", style: .default, handler: { (action) in
-                            UIApplication.shared.openURL(URL.init(string: infoModel.trackViewUrl as! String)!)
+                            self.openInApp(self.privateInfoModel!)
                         }))
                         self.window.rootViewController?.present(alertController, animated: true, completion: nil)
                         
@@ -61,7 +64,7 @@ class CheckVersionMgr : NSObject {
                     //搜索结果为空，可能App尚未上架
                 }
             }, failure: { (error) in
-                print(error!)
+                debugPrint(error!)
             })
         }
     }
@@ -81,9 +84,34 @@ class CheckVersionMgr : NSObject {
                     //搜索结果为空，可能App尚未上架
                 }
             }, failure: { (errors) in
-                print(errors!)
+                debugPrint(errors!)
             })
         }
+    }
+    
+    
+    /** 更新时在APP应用内打开更新页面*/
+    func openInApp(_ model:AppInfoModel) {
+        let storeVC = SKStoreProductViewController.init()
+        storeVC.delegate = self
+        let paramete = [SKStoreProductParameterITunesItemIdentifier: (model.trackId!)]
+        storeVC.loadProduct(withParameters:paramete , completionBlock: { (loadFlag, error) in
+            if !loadFlag {
+                storeVC.dismiss(animated: true, completion: nil)
+                UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
+            }
+        })
+        self.window.rootViewController?.present(storeVC, animated: true, completion: nil)
+    }
+    
+    /** 更新时跳转到Appstore页面*/
+    func openInAppStore(_ model:AppInfoModel) {
+        UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
+    }
+    
+    
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -98,7 +126,7 @@ extension CheckVersionMgr {
         
         if (lastTime != nil) {
             let timeInterval = nowTime.timeIntervalSince1970 - (lastTime as! NSDate).timeIntervalSince1970
-            if Int(timeInterval)/60 >=  CheckAgainInterval {
+            if Int(timeInterval)/60 <=  CheckAgainInterval {
                 userdefault.setValue(nowTime, forKey: LastCheckTime)
                 userdefault.synchronize()
                 return true
@@ -117,7 +145,7 @@ extension CheckVersionMgr {
     func getVersionInfo(completed:@escaping (_ result: NSDictionary?)-> (), failure:@escaping (_ error: NSError?)-> ()) {
         let infoDict = Bundle.main.infoDictionary
         let appbundleId : String? = infoDict!["CFBundleIdentifier"] as? String
-        let url = ItunesAdress + appbundleId!
+        let url = ItunesAdress + "com.meitianhui.BenefitEveryday"//appbundleId!
         
         //异步请求解决4G卡顿问题，设置缓存策略,不让加载系统中缓存的数据
         let request = NSMutableURLRequest.init(url: NSURL.init(string: url) as! URL)
@@ -146,6 +174,7 @@ extension CheckVersionMgr {
         return localversion as! String
     }
     
+    /** 比较版本号*/
     func compareVersion(_ localVersion:String, _ itunesVersion:String) -> Bool {
         let isnew = localVersion.compare(itunesVersion) == .orderedAscending
         if isnew {
