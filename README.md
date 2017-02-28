@@ -8,7 +8,7 @@
 Swift 3.0 , iOS 8.0+
 
 # 介绍
-1. 简单地调用一个方法，即可检测APP的新版本特性。
+1. 简单地调用一个方法，即可检测APP的新版本特性的提示。
 2. 默认使用系统的弹框，也支持自定义的弹框。
 
 # 安装
@@ -22,25 +22,29 @@ Swift 3.0 , iOS 8.0+
 
 # 用法
 
-使用默认属性进行版本的检测。
+使用默认弹框进行版本的检测提示。
+
+```swift
+let checkMgr = CheckVersionMgr.shareInstance
+checkMgr.checkVersionWithSystemAlert()
+```
+
+如果要使用自定义的提示框，可在以下方法的block中自定义。
+
+```swift
+let checkMgr = CheckVersionMgr.shareInstance
+checkMgr.checkVersionWithCustomView { (model) in
+    //code
+}
+```
+
+不再提示APP版本的更新提示。
 
 ```swift
 
 ```
 
-自定义警示框的标题，下次提示的标题，立即更新的标题。
-
-```swift
-
-```
-
-自定义警示框的标题，下次提示的标题，立即更新的标题，跳过该版本的标题。
-
-```swift
-
-```
-
-如果你想在当前应用中以模态视图的形式打开AppStore，请设置`openAPPStoreInsideAPP`，默认从应用跳转出去到AppStore。
+默认从APP跳转出去到AppStore进行更新，也支持在APP应用内打开更新页面，请设置`openTrackUrlInAPP`，
 
 ```swift
 

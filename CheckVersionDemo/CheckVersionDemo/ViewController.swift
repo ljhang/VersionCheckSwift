@@ -17,6 +17,11 @@ class ViewController: UIViewController {
         
         let checkMgr = CheckVersionMgr.shareInstance
         checkMgr.checkVersionWithSystemAlert()
+        
+        checkMgr.checkVersionWithCustomView { (model) in
+            //code
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
