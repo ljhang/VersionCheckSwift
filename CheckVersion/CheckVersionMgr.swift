@@ -26,15 +26,18 @@ class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     static let shareInstance = CheckVersionMgr()
     private override init() {}
     
-    var window: UIWindow {
+    private var window: UIWindow {
         let appDelegate = UIApplication.shared.delegate
         return (appDelegate?.window!)!
     }
     
     private var privateInfoModel : AppInfoModel?
     
+    /** 默认从APP跳转出去到AppStore进行更新， 设置false为应用内打开*/
+    open var openTrackUrlInAppStore: Bool = true
+    
     /** 检测新版本(使用默认提示框)*/
-    func checkVersionWithSystemAlert() {
+    public func checkVersionWithSystemAlert() {
         let status = shouldStartCheck()
         if status {
             getVersionInfo(completed: { (result) in
@@ -52,7 +55,12 @@ class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
                             //关闭
                         }))
                         alertController.addAction(UIAlertAction.init(title: "火速更新", style: .default, handler: { (action) in
-                            self.openInApp(self.privateInfoModel!)
+                            if self.openTrackUrlInAppStore {
+                                self.openInAppStore(self.privateInfoModel!)
+                            } else {
+                                self.openInApp(self.privateInfoModel!)
+                            }
+                            
                         }))
                         self.window.rootViewController?.present(alertController, animated: true, completion: nil)
                         
@@ -70,7 +78,7 @@ class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     }
     
     /** 检测新版本(自定义提示框)*/
-    func checkVersionWithCustomView( getInfoBlock:@escaping (_ infoModel:AppInfoModel)-> ()) {
+    public func checkVersionWithCustomView( getInfoBlock:@escaping (_ infoModel:AppInfoModel)-> ()) {
         let status = shouldStartCheck()
         if status {
             getVersionInfo(completed: { (result) in
@@ -91,7 +99,7 @@ class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     
     
     /** 更新时在APP应用内打开更新页面*/
-    func openInApp(_ model:AppInfoModel) {
+    public func openInApp(_ model:AppInfoModel) {
         let storeVC = SKStoreProductViewController.init()
         storeVC.delegate = self
         let paramete = [SKStoreProductParameterITunesItemIdentifier: (model.trackId!)]
@@ -105,7 +113,7 @@ class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     }
     
     /** 更新时跳转到Appstore页面*/
-    func openInAppStore(_ model:AppInfoModel) {
+    public func openInAppStore(_ model:AppInfoModel) {
         UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
     }
     
@@ -126,7 +134,7 @@ extension CheckVersionMgr {
         
         if (lastTime != nil) {
             let timeInterval = nowTime.timeIntervalSince1970 - (lastTime as! NSDate).timeIntervalSince1970
-            if Int(timeInterval)/60 <=  CheckAgainInterval {
+            if Int(timeInterval)/60 >=  CheckAgainInterval {
                 userdefault.setValue(nowTime, forKey: LastCheckTime)
                 userdefault.synchronize()
                 return true

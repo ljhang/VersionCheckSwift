@@ -16,6 +16,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let checkMgr = CheckVersionMgr.shareInstance
+        checkMgr.openTrackUrlInAppStore = false
+        
         checkMgr.checkVersionWithSystemAlert()
         
         checkMgr.checkVersionWithCustomView { (model) in

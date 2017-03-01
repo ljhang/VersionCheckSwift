@@ -44,10 +44,11 @@ checkMgr.checkVersionWithCustomView { (model) in
 
 ```
 
-默认从APP跳转出去到AppStore进行更新，也支持在APP应用内打开更新页面，请设置`openTrackUrlInAPP`，
+默认从APP跳转出去到AppStore进行更新，也支持在APP应用内打开更新页面，请设置`openTrackUrlInAppStore`，
 
 ```swift
-
+let checkMgr = CheckVersionMgr.shareInstance
+checkMgr.openTrackUrlInAppStore = false
 ```
 
 
