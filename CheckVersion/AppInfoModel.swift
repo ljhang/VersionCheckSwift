@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AppInfoModel : NSObject {
+open class AppInfoModel : NSObject {
     /** 版本号*/
     var version : AnyObject?
     /** bundleId*/
@@ -31,7 +31,7 @@ class AppInfoModel : NSObject {
     var screenshotUrls : [AnyObject]?
     
     
-    init(dic:[String:AnyObject]) {
+    public init(dic:[String:AnyObject]) {
         super.init()
         
         self.version = dic["version"] 
