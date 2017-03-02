@@ -20,11 +20,12 @@ let CheckAgainInterval = 60
 let ItunesAdress = "http://itunes.apple.com/lookup?bundleId="
 
 public enum AppStatus : Int {
-    case notNeedUpdate
+    case normal
+    case dataError
     case noInItunes
 }
 
-open class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
+public class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     
     public static let shareInstance = CheckVersionMgr()
     private override init() {}
@@ -39,10 +40,11 @@ open class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     /** 默认从APP跳转出去到AppStore进行更新， 设置false为应用内打开*/
     open var openTrackUrlInAppStore: Bool = true
     
+    
     //MARK: - Method
     
     /** 检测新版本(使用默认提示框)*/
-    open func checkVersionWithSystemAlert() {
+    public func checkVersionWithSystemAlert() {
         let status = shouldStartCheck()
         if status {
             getVersionInfo(completed: { (result) in
@@ -82,7 +84,7 @@ open class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     }
     
     /** 检测新版本(自定义提示框)*/
-    open func checkVersionWithCustomView( getInfoBlock:@escaping (_ infoModel:AppInfoModel)-> ()) {
+    public func checkVersionWithCustomView( getInfoBlock:@escaping (_ infoModel:AppInfoModel?, _ status:AppStatus)-> ()) {
         let status = shouldStartCheck()
         if status {
             getVersionInfo(completed: { (result) in
@@ -91,19 +93,21 @@ open class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
                 if resultCount.intValue == 1 {
                     let results = (result?["results"] as? NSArray)?.firstObject
                     let infoModel = AppInfoModel.init(dic: results as! [String : AnyObject])
-                    getInfoBlock(infoModel)
+                    getInfoBlock(infoModel, .normal)
                 } else {
                     //搜索结果为空，可能App尚未上架
+                    getInfoBlock(nil, .noInItunes)
                 }
             }, failure: { (errors) in
                 debugPrint(errors!)
+                getInfoBlock(nil, .dataError)
             })
         }
     }
     
     
     /** 更新时在APP应用内打开更新页面*/
-    open func openInApp(_ model:AppInfoModel) {
+    public func openInApp(_ model:AppInfoModel) {
         let storeVC = SKStoreProductViewController.init()
         storeVC.delegate = self
         let paramete = [SKStoreProductParameterITunesItemIdentifier: (model.trackId!)]
@@ -117,7 +121,7 @@ open class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     }
     
     /** 更新时跳转到Appstore页面*/
-    open func openInAppStore(_ model:AppInfoModel) {
+    public func openInAppStore(_ model:AppInfoModel) {
         UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
     }
     
@@ -157,7 +161,7 @@ internal extension CheckVersionMgr {
     func getVersionInfo(completed:@escaping (_ result: NSDictionary?)-> (), failure:@escaping (_ error: NSError?)-> ()) {
         let infoDict = Bundle.main.infoDictionary
         let appbundleId : String? = infoDict!["CFBundleIdentifier"] as? String
-        let url = ItunesAdress + "com.meitianhui.BenefitEveryday"//appbundleId!
+        let url = ItunesAdress + appbundleId!
         
         //异步请求解决4G卡顿问题，设置缓存策略,不让加载系统中缓存的数据
         let request = NSMutableURLRequest.init(url: NSURL.init(string: url) as! URL)

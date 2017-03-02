@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.name         = "CheckVersion"
   
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   
   s.summary      = "A line of code checks Whether the app needs to be updated."
 
@@ -23,11 +23,11 @@ Pod::Spec.new do |s|
   
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/ljhang/VersionCheckSwift.git", :tag => "1.0.2" }
+  s.source       = { :git => "https://github.com/ljhang/VersionCheckSwift.git", :tag => "1.0.3" }
 
   s.source_files  = "CheckVersion/*.swift"
 
-  s.frameworks = "Foundation", "UIKit"
+  s.frameworks = "Foundation", "UIKit", "StoreKit"
 
   s.requires_arc = true
 
