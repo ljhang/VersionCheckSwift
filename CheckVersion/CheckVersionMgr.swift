@@ -13,9 +13,6 @@ import StoreKit
 /** 上次检查的时间*/
 let LastCheckTime = "lastchecktime"
 
-/** 检查时间间隔，Min*/
-let CheckAgainInterval = 60
-
 /** iTunes 地址*/
 let ItunesAdress = "http://itunes.apple.com/lookup?bundleId="
 
@@ -40,6 +37,8 @@ public class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     /** 默认从APP跳转出去到AppStore进行更新， 设置false为应用内打开*/
     open var openTrackUrlInAppStore: Bool = true
     
+    /** 检查时间间隔，Min*/
+    open var CheckAgainInterval:Int = 60
     
     //MARK: - Method
     
@@ -114,7 +113,10 @@ public class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
         storeVC.loadProduct(withParameters:paramete , completionBlock: { (loadFlag, error) in
             if !loadFlag {
                 storeVC.dismiss(animated: true, completion: nil)
-                UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
+                DispatchQueue.main.async {
+                    UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
+                }
+                
             }
         })
         self.window.rootViewController?.present(storeVC, animated: true, completion: nil)
@@ -122,7 +124,9 @@ public class CheckVersionMgr : NSObject , SKStoreProductViewControllerDelegate{
     
     /** 更新时跳转到Appstore页面*/
     public func openInAppStore(_ model:AppInfoModel) {
-        UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
+        DispatchQueue.main.async {
+            UIApplication.shared.openURL(URL.init(string: model.trackViewUrl as! String)!)
+        }
     }
     
     

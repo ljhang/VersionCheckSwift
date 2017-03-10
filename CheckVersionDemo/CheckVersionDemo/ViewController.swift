@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         
         let checkMgr = CheckVersionMgr.shareInstance
         checkMgr.openTrackUrlInAppStore = false
-        
+        checkMgr.CheckAgainInterval = 60*24
         checkMgr.checkVersionWithSystemAlert()
         
         checkMgr.checkVersionWithCustomView { (model, status) in
