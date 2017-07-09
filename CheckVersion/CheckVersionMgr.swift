@@ -11,10 +11,10 @@ import UIKit
 import StoreKit
 
 /** 上次检查的时间*/
-let LastCheckTime = "lastchecktime"
+public let LastCheckTime = "lastchecktime"
 
 /** iTunes 地址*/
-let ItunesAdress = "http://itunes.apple.com/lookup?bundleId="
+public let ItunesAdress = "http://itunes.apple.com/lookup?bundleId="
 
 public enum AppStatus : Int {
     case normal
@@ -165,10 +165,10 @@ internal extension CheckVersionMgr {
     func getVersionInfo(completed:@escaping (_ result: NSDictionary?)-> (), failure:@escaping (_ error: NSError?)-> ()) {
         let infoDict = Bundle.main.infoDictionary
         let appbundleId : String? = infoDict!["CFBundleIdentifier"] as? String
-        let url = ItunesAdress + appbundleId!
+        let url = URL(string: ItunesAdress + appbundleId!)
         
         //异步请求解决4G卡顿问题，设置缓存策略,不让加载系统中缓存的数据
-        let request = NSMutableURLRequest.init(url: NSURL.init(string: url) as! URL)
+        let request = NSMutableURLRequest(url: url!)
         request.httpMethod = "GET"
         request.cachePolicy = .reloadIgnoringLocalCacheData
         
