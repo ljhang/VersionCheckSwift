@@ -66,7 +66,7 @@ checkMgr.CheckAgainInterval = 60*24
 
 # 附上源码地址
 GitHub链接：[VersionCheckSwift](https://github.com/ljhang/VersionCheckSwift)
-喜欢或者觉得有帮助的童鞋，可以给点个Star咯，谢谢
+喜欢或者觉得有帮助的童鞋，可以给点个Star咯，谢谢!
 
 # 许可证
 
