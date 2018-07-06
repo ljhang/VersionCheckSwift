@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Version
 
 class ViewController: UIViewController {
 
@@ -19,17 +19,27 @@ class ViewController: UIViewController {
         checkMgr.openTrackUrlInAppStore = false
         checkMgr.CheckAgainInterval = 60*24
         checkMgr.checkVersionWithSystemAlert()
-        
+        checkMgr.getVersionInfo(completed: { (info) in
+            
+        }) { (error) in
+            
+        }
         checkMgr.checkVersionWithCustomView { (model, status) in
             //code
         }
+        
+        let versionKit = VersionKit.shareInstance
+        versionKit.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
+extension ViewController: VersionKitDelegate {
+    func versionKitWithBundleID() -> String? {
+        return "com.nowgoal.sports"
+    }
+}
