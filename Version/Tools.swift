@@ -33,4 +33,12 @@ class Tools {
         }
         return false
     }
+    
+    /// 根控制器
+    static var rootViewController: UIViewController? {
+        if let window = UIApplication.shared.keyWindow {
+            return window.rootViewController
+        }
+        return nil
+    }
 }

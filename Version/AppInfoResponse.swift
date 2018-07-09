@@ -26,9 +26,26 @@ public class AppInfoResponse: Mappable {
 
 public class AppInfoResults: Mappable {
     
+    var trackViewUrl: String?
+    
+    var releaseNotes: String?
+    
+    var trackId: Int?
+    
+    var trackName: String?
+    
+    var version: String?
+    
+    var bundleId: String?
+    
     public required init?(map: Map) { }
     
     public func mapping(map: Map) {
-        
+        trackViewUrl <- map["trackViewUrl"]
+        releaseNotes <- map["releaseNotes"]
+        trackId      <- map["trackId"]
+        trackName    <- map["trackName"]
+        version      <- map["version"]
+        bundleId     <- map["bundleId"]
     }
 }
