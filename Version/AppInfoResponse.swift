@@ -11,7 +11,7 @@ import ObjectMapper
 
 public class AppInfoResponse: Mappable {
     
-    var resultCount: String?
+    var resultCount: Int?
     
     var results: [AppInfoResults]?
     

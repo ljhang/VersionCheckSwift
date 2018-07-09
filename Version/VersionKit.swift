@@ -16,6 +16,8 @@ public class VersionKit {
     
     public static let shareInstance = VersionKit()
     
+    public static let bundle = Bundle(for: VersionKit.self)
+    
     public weak var delegate: VersionKitDelegate?
     
     /// 上次检查时间
@@ -33,6 +35,15 @@ public class VersionKit {
                 self.startReachability()
             })
             .disposed(by: self.disposeBag)
+        
+        
+        
+        if let version = Tools.getLocalVersion(), Tools.compareVersion(version, "1.0.6") {
+            print("yes")
+        } else {
+            print("no")
+        }
+    
     }
     
     deinit {
@@ -68,7 +79,7 @@ public class VersionKit {
     }
 }
 
-// MARK: - adapt
+// MARK: - URLs
 
 extension VersionKit {
     func urlForBundleID() -> URL? {
@@ -78,6 +89,8 @@ extension VersionKit {
         return nil
     }
 }
+
+// MARK: - VersionKitDelegate
 
 public protocol VersionKitDelegate: class {
     func versionKitWithBundleID() -> String?

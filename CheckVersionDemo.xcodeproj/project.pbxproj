@@ -18,8 +18,7 @@
 		044628CF20EF526700A34781 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628CA20EF526700A34781 /* ObjectMapper.framework */; };
 		044628D320EF5AAF00A34781 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628D220EF5AAF00A34781 /* Reachability.framework */; };
 		044628D520EF632D00A34781 /* AppInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044628D420EF632D00A34781 /* AppInfoResponse.swift */; };
-		9B67217B1E631DD9000F52D2 /* AppInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6721791E631DD9000F52D2 /* AppInfoModel.swift */; };
-		9B67217C1E631DD9000F52D2 /* CheckVersionMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B67217A1E631DD9000F52D2 /* CheckVersionMgr.swift */; };
+		3087A3C520EFAF2F00A822D9 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3087A3C420EFAF2F00A822D9 /* Tools.swift */; };
 		9BAB95381E61CF9F002E0897 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB95371E61CF9F002E0897 /* AppDelegate.swift */; };
 		9BAB953A1E61CF9F002E0897 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB95391E61CF9F002E0897 /* ViewController.swift */; };
 		9BAB953D1E61CF9F002E0897 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BAB953B1E61CF9F002E0897 /* Main.storyboard */; };
@@ -64,8 +63,7 @@
 		044628D020EF5AA200A34781 /* Reachability.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Reachability.framework.dSYM; path = Carthage/Build/iOS/Reachability.framework.dSYM; sourceTree = "<group>"; };
 		044628D220EF5AAF00A34781 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		044628D420EF632D00A34781 /* AppInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoResponse.swift; sourceTree = "<group>"; };
-		9B6721791E631DD9000F52D2 /* AppInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppInfoModel.swift; sourceTree = "<group>"; };
-		9B67217A1E631DD9000F52D2 /* CheckVersionMgr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckVersionMgr.swift; sourceTree = "<group>"; };
+		3087A3C420EFAF2F00A822D9 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		9BAB95341E61CF9F002E0897 /* CheckVersionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckVersionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BAB95371E61CF9F002E0897 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BAB95391E61CF9F002E0897 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +104,7 @@
 				044628B720EF1E1100A34781 /* Version.h */,
 				044628B820EF1E1100A34781 /* Info.plist */,
 				044628C220EF441000A34781 /* VersionKit.swift */,
+				3087A3C420EFAF2F00A822D9 /* Tools.swift */,
 				044628D420EF632D00A34781 /* AppInfoResponse.swift */,
 			);
 			path = Version;
@@ -123,16 +122,6 @@
 				044628C920EF526700A34781 /* RxSwift.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9B6721781E631DD9000F52D2 /* CheckVersion */ = {
-			isa = PBXGroup;
-			children = (
-				9B6721791E631DD9000F52D2 /* AppInfoModel.swift */,
-				9B67217A1E631DD9000F52D2 /* CheckVersionMgr.swift */,
-			);
-			name = CheckVersion;
-			path = ../../CheckVersion;
 			sourceTree = "<group>";
 		};
 		9BAB952B1E61CF9F002E0897 = {
@@ -157,7 +146,6 @@
 		9BAB95361E61CF9F002E0897 /* CheckVersionDemo */ = {
 			isa = PBXGroup;
 			children = (
-				9B6721781E631DD9000F52D2 /* CheckVersion */,
 				9BAB95371E61CF9F002E0897 /* AppDelegate.swift */,
 				9BAB95391E61CF9F002E0897 /* ViewController.swift */,
 				9BAB953B1E61CF9F002E0897 /* Main.storyboard */,
@@ -310,6 +298,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3087A3C520EFAF2F00A822D9 /* Tools.swift in Sources */,
 				044628D520EF632D00A34781 /* AppInfoResponse.swift in Sources */,
 				044628C320EF441000A34781 /* VersionKit.swift in Sources */,
 			);
@@ -320,8 +309,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BAB953A1E61CF9F002E0897 /* ViewController.swift in Sources */,
-				9B67217B1E631DD9000F52D2 /* AppInfoModel.swift in Sources */,
-				9B67217C1E631DD9000F52D2 /* CheckVersionMgr.swift in Sources */,
 				9BAB95381E61CF9F002E0897 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
