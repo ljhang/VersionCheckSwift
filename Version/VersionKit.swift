@@ -28,26 +28,26 @@ public class VersionKit: NSObject {
     // MARK: - private
     
     /// 上次检查时间
-    private let lastDetectTime: Variable<String?> = Variable(UserDefaults.standard.string(forKey: Constant.lastDetectTimeKey))
-    private var rx_lastDetectTime: Observable<String?> {
+    fileprivate let lastDetectTime: Variable<String?> = Variable(UserDefaults.standard.string(forKey: Constant.lastDetectTimeKey))
+    fileprivate var rx_lastDetectTime: Observable<String?> {
         return self.lastDetectTime.asObservable()
     }
     
     /// 跳过检测的版本
-    private let skipDetectVersion: Variable<String?> = Variable(UserDefaults.standard.string(forKey: Constant.skipDetectVersionKey))
-    private var rx_skipDetectVersion: Observable<String?> {
+    fileprivate let skipDetectVersion: Variable<String?> = Variable(UserDefaults.standard.string(forKey: Constant.skipDetectVersionKey))
+    fileprivate var rx_skipDetectVersion: Observable<String?> {
         return self.skipDetectVersion.asObservable()
     }
     
     /// 是否发起检测请求
-    private let shouldStartDetectApp = Variable<Bool>(false)
+    fileprivate let shouldStartDetectApp = Variable<Bool>(false)
     
-    private let info: Variable<AppInfoResults?> = Variable(nil)
+    fileprivate let info: Variable<AppInfoResults?> = Variable(nil)
     
     /// 重新检测
-    private let reDetect = PublishSubject<Void>()
+    fileprivate let reDetect = PublishSubject<Void>()
     
-    private let disposeBag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
     
     private override init() {
         
@@ -67,7 +67,7 @@ public class VersionKit: NSObject {
             })
             .disposed(by: self.disposeBag)
         
-        
+        /// 检测条件判断
         Observable.combineLatest(self.rx_lastDetectTime.asObservable(),
                                  self.detectType.asObservable(),
                                  self.reDetect.asObservable()) { (detectTime, type, _) -> Bool in
@@ -90,7 +90,7 @@ public class VersionKit: NSObject {
             })
             .disposed(by: self.disposeBag)
         
-        
+        /// 触发检测
         self.shouldStartDetectApp.asObservable()
             .filter({ $0 == true })
             .subscribe(onNext: { [unowned self] _value in
@@ -116,27 +116,9 @@ public class VersionKit: NSObject {
     
     deinit { }
     
-    private func configAppInfo(info: AppInfoResults?) {
-        guard let _info = info else {
-            return
-        }
-        
-        let alertController = UIAlertController(title: _info.trackName, message: _info.releaseNotes, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "稍后再说", style: .default, handler: nil))
-        alertController.addAction(UIAlertAction(title: "火速更新", style: .default, handler: { (action) in
-            switch self.viewType() {
-            case .inApp:
-                self.openInApp(self.info.value)
-            case .store:
-                self.openInStore(self.info.value)
-            }
-        }))
-        Tools.rootViewController?.present(alertController, animated: true, completion: nil)
-    }
-    
     // MARK: - network
     
-    private func appInfoService() {
+    fileprivate func appInfoService() {
         if let URL = self.urlForBundleID() {
             Alamofire.request(URL).responseObject { [unowned self] (response: DataResponse<AppInfoResponse>) in
                 let infoResponse = response.result.value
@@ -147,14 +129,42 @@ public class VersionKit: NSObject {
         }
     }
     
-    /** 更新时在APP应用内打开更新页面*/
-    public func openInApp(_ info: AppInfoResults?) {
-        guard let _info = info else {
+    // MARK: - config info
+    
+    /// 处理新版APP的提示信息
+    ///
+    /// - Parameter info: AppInfoResults
+    fileprivate func configAppInfo(info: AppInfoResults?) {
+        guard let _info = info, let _version = _info.version else {
+            return
+        }
+        
+        let alertController = UIAlertController(title: _info.trackName, message: _info.releaseNotes, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "稍后再说", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "火速更新", style: .default, handler: { [unowned self] _ in
+            switch self.viewType() {
+            case .inApp:
+                self.openInApp(_info)
+            case .store:
+                self.openInStore(_info)
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "跳过此版本", style: .default, handler: { [unowned self] _ in
+            self.skipDetectVersion.value = _version
+        }))
+        Tools.rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// 在APP应用内打开更新页面
+    ///
+    /// - Parameter info: AppInfoResults
+    fileprivate func openInApp(_ info: AppInfoResults?) {
+        guard let _info = info, let _trackId = _info.trackId else {
             return
         }
         let storeVC = SKStoreProductViewController()
         storeVC.delegate = self
-        storeVC.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier:_info.trackId ?? 0], completionBlock: { (loadFlag, error) in
+        storeVC.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier: _trackId], completionBlock: { (loadFlag, error) in
             if !loadFlag {
                 storeVC.dismiss(animated: true, completion: nil)
             }
@@ -162,8 +172,10 @@ public class VersionKit: NSObject {
         Tools.rootViewController?.present(storeVC, animated: true, completion: nil)
     }
     
-    /** 更新时跳转到Appstore页面*/
-    public func openInStore(_ info: AppInfoResults?) {
+    /// 跳转到Appstore打开更新页面页面
+    ///
+    /// - Parameter info: AppInfoResults
+    fileprivate func openInStore(_ info: AppInfoResults?) {
         guard let _info = info else {
             return
         }
