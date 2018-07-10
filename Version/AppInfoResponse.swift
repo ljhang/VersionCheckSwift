@@ -48,4 +48,11 @@ public class AppInfoResults: Mappable {
         version      <- map["version"]
         bundleId     <- map["bundleId"]
     }
+    
+    func shouldSkipThisVersion(skipVersion: String? = nil) -> Bool {
+        guard let _skipVersion = skipVersion, let _version = self.version else {
+            return false
+        }
+        return _skipVersion.compare(_version) == .orderedSame
+    }
 }

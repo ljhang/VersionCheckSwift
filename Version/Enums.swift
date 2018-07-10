@@ -10,17 +10,11 @@ import Foundation
 
 public enum ViewAppType: Int {
     case inApp
-    case safari
+    case store
 }
 
 public enum DetectType {
     case immediate
     case never
-    case skip(String)
-    case time(Float)
-    
-    /// 是否发起检测请求
-    func isStartDetectApp() {
-        
-    }
+    case interval(Float)
 }

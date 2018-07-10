@@ -16,9 +16,14 @@
 		044628CD20EF526700A34781 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628C820EF526700A34781 /* RxCocoa.framework */; };
 		044628CE20EF526700A34781 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628C920EF526700A34781 /* RxSwift.framework */; };
 		044628CF20EF526700A34781 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628CA20EF526700A34781 /* ObjectMapper.framework */; };
-		044628D320EF5AAF00A34781 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628D220EF5AAF00A34781 /* Reachability.framework */; };
 		044628D520EF632D00A34781 /* AppInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044628D420EF632D00A34781 /* AppInfoResponse.swift */; };
 		04A9F66B20F34212007F2A3E /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A9F66A20F34212007F2A3E /* Enums.swift */; };
+		04A9F66D20F4979E007F2A3E /* VersionKitBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A9F66C20F4979E007F2A3E /* VersionKitBridge.swift */; };
+		04A9F66E20F4AB46007F2A3E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628C620EF526700A34781 /* Alamofire.framework */; };
+		04A9F66F20F4AB46007F2A3E /* AlamofireObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628C720EF526700A34781 /* AlamofireObjectMapper.framework */; };
+		04A9F67020F4AB46007F2A3E /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628CA20EF526700A34781 /* ObjectMapper.framework */; };
+		04A9F67120F4AB46007F2A3E /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628C820EF526700A34781 /* RxCocoa.framework */; };
+		04A9F67220F4AB46007F2A3E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 044628C920EF526700A34781 /* RxSwift.framework */; };
 		3087A3C520EFAF2F00A822D9 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3087A3C420EFAF2F00A822D9 /* Tools.swift */; };
 		9BAB95381E61CF9F002E0897 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB95371E61CF9F002E0897 /* AppDelegate.swift */; };
 		9BAB953A1E61CF9F002E0897 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB95391E61CF9F002E0897 /* ViewController.swift */; };
@@ -65,6 +70,7 @@
 		044628D220EF5AAF00A34781 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		044628D420EF632D00A34781 /* AppInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoResponse.swift; sourceTree = "<group>"; };
 		04A9F66A20F34212007F2A3E /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		04A9F66C20F4979E007F2A3E /* VersionKitBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionKitBridge.swift; sourceTree = "<group>"; };
 		3087A3C420EFAF2F00A822D9 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		9BAB95341E61CF9F002E0897 /* CheckVersionDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckVersionDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BAB95371E61CF9F002E0897 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,7 +86,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				044628D320EF5AAF00A34781 /* Reachability.framework in Frameworks */,
 				044628CB20EF526700A34781 /* Alamofire.framework in Frameworks */,
 				044628CC20EF526700A34781 /* AlamofireObjectMapper.framework in Frameworks */,
 				044628CD20EF526700A34781 /* RxCocoa.framework in Frameworks */,
@@ -93,6 +98,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04A9F66E20F4AB46007F2A3E /* Alamofire.framework in Frameworks */,
+				04A9F66F20F4AB46007F2A3E /* AlamofireObjectMapper.framework in Frameworks */,
+				04A9F67020F4AB46007F2A3E /* ObjectMapper.framework in Frameworks */,
+				04A9F67120F4AB46007F2A3E /* RxCocoa.framework in Frameworks */,
+				04A9F67220F4AB46007F2A3E /* RxSwift.framework in Frameworks */,
 				044628BC20EF1E1100A34781 /* Version.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,6 +161,7 @@
 			children = (
 				9BAB95371E61CF9F002E0897 /* AppDelegate.swift */,
 				9BAB95391E61CF9F002E0897 /* ViewController.swift */,
+				04A9F66C20F4979E007F2A3E /* VersionKitBridge.swift */,
 				9BAB953B1E61CF9F002E0897 /* Main.storyboard */,
 				9BAB953E1E61CF9F002E0897 /* Assets.xcassets */,
 				9BAB95401E61CF9F002E0897 /* LaunchScreen.storyboard */,
@@ -181,7 +192,6 @@
 				044628B120EF1E1100A34781 /* Frameworks */,
 				044628B220EF1E1100A34781 /* Headers */,
 				044628B320EF1E1100A34781 /* Resources */,
-				044628C420EF517E00A34781 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -200,6 +210,7 @@
 				9BAB95311E61CF9F002E0897 /* Frameworks */,
 				9BAB95321E61CF9F002E0897 /* Resources */,
 				044628C120EF1E1100A34781 /* Embed Frameworks */,
+				04A9F67320F4ABD9007F2A3E /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -218,7 +229,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = lee;
 				TargetAttributes = {
 					044628B420EF1E1100A34781 = {
@@ -274,7 +285,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		044628C420EF517E00A34781 /* Carthage */ = {
+		04A9F67320F4ABD9007F2A3E /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,7 +296,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Reachability.framework",
 			);
 			name = Carthage;
 			outputPaths = (
@@ -313,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9BAB953A1E61CF9F002E0897 /* ViewController.swift in Sources */,
+				04A9F66D20F4979E007F2A3E /* VersionKitBridge.swift in Sources */,
 				9BAB95381E61CF9F002E0897 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,7 +374,7 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -407,7 +418,7 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -443,15 +454,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -492,15 +511,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -532,12 +559,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = U2HALC3CZQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CheckVersionDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hang.CheckVersionDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -548,12 +579,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = U2HALC3CZQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = CheckVersionDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hang.CheckVersionDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
